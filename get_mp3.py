@@ -3,7 +3,7 @@ import os
 import requests
 
 def download_mp3_from_server(url: str):
-    endpoint = "http://127.0.0.1:8000"  # Replace with your FastAPI server URL and endpoint
+    endpoint = "http://127.0.0.1:8000"
 
     try:
         test = requests.get(endpoint)
