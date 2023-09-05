@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 import pytest
-from main import app  # Import your FastAPI instance here
+from main import app  # Import FastAPI instance here
 
 client = TestClient(app)
 
