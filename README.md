@@ -7,5 +7,5 @@ I got tired of using unreliable websites to convert youtube videos to mp3 files,
 
 ## To Do
 - [ ] Make multiple transcripts save incrementally and separately instead of being joined and saved as one file at end
-- [ ] Add batch conversion
+- [ ] Add batch conversion to mp3
 - [ ] Test mp3_script with new sanitize filename
