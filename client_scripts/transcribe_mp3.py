@@ -38,7 +38,7 @@ def transcribe_mp3(path: str, model: str = "whisper-1", parse=True):
         print("Transcribing...")
         start = perf_counter()
         transcript = _get(file, os.path.basename(path))
-        print(f"Transcribed {path} in {perf_counter() - start}")
+        print(f"Transcribed {path} in {perf_counter() - start:0.2f} s")
     except Exception as e:
         print(f"Error transcribing {path} in whisper API call")
         print(e)
