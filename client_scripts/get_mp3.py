@@ -1,8 +1,13 @@
 import argparse
 import os
 import requests
+import string
 
 def download_mp3_from_server(url: str):
+    def _sanitize_filename(filename: str):
+        valid_chars = "-_.() %s%s" % (string.ascii_letters, string.digits)
+        return ''.join(c for c in filename if c in valid_chars)
+    
     endpoint = "http://127.0.0.1:8000"
 
     try:
@@ -31,7 +36,7 @@ def download_mp3_from_server(url: str):
 
     filename = content_disposition.split("filename=")[1].strip('"')
 
-    output_path = os.path.join(output_dir, filename)
+    output_path = os.path.join(output_dir, _sanitize_filename(filename))
 
     with open(output_path, "wb") as f:
         f.write(response.content)
