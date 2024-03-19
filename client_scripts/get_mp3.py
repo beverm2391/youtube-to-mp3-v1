@@ -44,8 +44,10 @@ def download_mp3_from_server(url: str):
     print(f"Saved {filename} to {output_dir}")
 
 if __name__ == "__main__":
+    print("Running get_mp3.py")
     parser = argparse.ArgumentParser(description="Download mp3 from FastAPI server")
     parser.add_argument("url", type=str, help="The URL of the YouTube video")
     args = parser.parse_args()
 
+    print(f"Downloading mp3 from {args.url}")
     download_mp3_from_server(args.url)

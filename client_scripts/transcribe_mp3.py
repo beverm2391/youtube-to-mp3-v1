@@ -27,26 +27,24 @@ def transcribe_all_mp3s(path: str):
         return transcribe_mp3(path) # transcribe mp3 file
 
 def transcribe_mp3(path: str, model: str = "whisper-1", parse=True):
+    assert os.path.exists(path), f"Path {path} does not exist"
+    with open(path, "rb") as f: audio_file = f.read()
     
-    def _get(file, filename: str): return openai.Audio.transcribe_raw(model, file, filename)
-    def _parse(transcript): return transcript['text']
-
-    with open(path, "rb") as f:
-        file = f.read()
+    print("Transcribing...")
+    start = perf_counter()
+    client = openai.Client()
     
     try:
-        print("Transcribing...")
-        start = perf_counter()
-        transcript = _get(file, os.path.basename(path))
+        transcript = client.audio.transcriptions.create(model=model, file=audio_file)
         print(f"Transcribed {path} in {perf_counter() - start:0.2f} s")
     except Exception as e:
-        print(f"Error transcribing {path} in whisper API call")
-        print(e)
+        print(f"Error transcribing {path} in whisper API call: {e}")
         return None
     
-    if parse:
-        return _parse(transcript)
-    return transcript
+    if parse: 
+        return transcript['text']
+    else:
+        return transcript
 
 def save_transcript(transcript: str, args_path: str):
     og_filename = os.path.basename(args_path)
@@ -65,4 +63,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     result = transcribe_all_mp3s(args.path)
+    if result is None or result.replace("\n", "").strip() == "":
+        raise Exception("No transcript generated")
     save_transcript(result, args.path)

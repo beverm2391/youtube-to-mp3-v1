@@ -21,7 +21,7 @@
     Use `uvicorn main:app --reload` to start the FastAPI server.
 
 6. **Download MP3:**  
-    Execute `python3 get_mp3.py YOUR_URL_HERE` to download the MP3 file from the given YouTube URL.
+    Execute `python3 get_mp3.py "YOUR_URL_HERE"` to download the MP3 file from the given YouTube URL. Make sure to put it in quotes so that special characters like `?` don't mess up the shell.
 
 To stop the server, use `Ctrl+C`.
 
